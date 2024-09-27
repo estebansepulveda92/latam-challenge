@@ -3,9 +3,9 @@ from datetime import datetime
 import json
 
 
-def _get_top_10_dates(file_path: str) -> List[str]:
+def get_top_dates(file_path: str) -> List[str]:
     """
-    Las top 10 fechas donde hay más tweets. .
+    Search for the 10 dates with the most tweets.
 
     Params
     -------
@@ -44,7 +44,7 @@ def _get_top_10_dates(file_path: str) -> List[str]:
         print(f"Error: {e}")
         return []
 
-def _get_most_common_username(file_path: str, day: str) -> Tuple[datetime.date, str]:
+def most_username(file_path: str, day: str) -> Tuple[datetime.date, str]:
     """
     Username with the most tweets for our date
 
@@ -103,9 +103,9 @@ def q1_memory(file_path: str) -> List[Tuple[datetime.date, str]]:
         - username (str): user who tweeted the most for that date.
     """
 
-    days= _get_top_10_dates(file_path)
+    days= get_top_dates(file_path)
 
     return [
-        _get_most_common_username(file_path, day)
+        most_username(file_path, day)
         for day in days
     ]
