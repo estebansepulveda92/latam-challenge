@@ -7,15 +7,18 @@ import json
 
 def read_json(file_path: str) -> pd.DataFrame:
     """
-    Reads a JSON file, then returns a Dataframe using pandas.
+    Reads a JSON file and returns a DataFrame using pandas.
 
-    Args
-    ------
-    file_path (str): the path to the JSON file.
+    Parameters
+    ----------
+    file_path : str
+        The path to the JSON file.
 
     Returns
-    ------
-    df (DataFrame): a pandas DataFrame containing the data from the JSON file.
+    -------
+    pd.DataFrame
+        A pandas DataFrame containing the data from the JSON file,
+        with columns 'day' for the date and 'username' for the user who tweeted.
     """
     days = []
     usernames = []
@@ -34,15 +37,17 @@ def read_json(file_path: str) -> pd.DataFrame:
 
 def format_date(df: pd.DataFrame) -> pd.DataFrame:
     """
-    Formats the date column of a pandas DataFrame.
+    Formats the 'day' column of a pandas DataFrame to datetime.date objects.
 
-    Args
-    -----
-    df (DataFrame): Dataframe format from pandas.
+    Parameters
+    ----------
+    df : pd.DataFrame
+        The pandas DataFrame with a 'day' column in string format.
 
     Returns
-    -----
-    df (DataFrame): return column formatted in pandas Dataframe.
+    -------
+    pd.DataFrame
+        The modified DataFrame with the 'day' column formatted as datetime.date.
     """
 
     df["day"]= df.day.apply(
@@ -52,16 +57,19 @@ def format_date(df: pd.DataFrame) -> pd.DataFrame:
 
 def get_data(df: pd.DataFrame) -> Tuple[List[datetime.date], List[str]]:
     """
-    Top 10 dates with most tweets and username with the most tweets those dates.
+    Finds the top 10 dates with the most tweets and the most active usernames on those dates.
 
-    Args
-    -----
-    df (DataFrame): the pandas DataFrame to use in the analysis.
+    Parameters
+    ----------
+    df : pd.DataFrame
+        The pandas DataFrame containing tweet data with columns 'day' and 'username'.
 
-    Returns:
-    Tuple in its 2 columns:
-        - days (List[datetime.date]): Top 10 dates with the most tweets.
-        - users (List[str]): User who tweeted the most in those dates.
+    Returns
+    -------
+    Tuple[List[datetime.date], List[str]]
+        A tuple containing:
+        - List[datetime.date]: Top 10 dates with the most tweets.
+        - List[str]: Usernames of the users who tweeted the most on those dates.
     """
     # Get ocurrences by date & most frequent username
     df= df.groupby("day").agg([
@@ -80,17 +88,19 @@ def get_data(df: pd.DataFrame) -> Tuple[List[datetime.date], List[str]]:
 
 def q1_time(file_path: str) -> List[Tuple[datetime.date, str]]:
     """
-    Returns the top 10 days with the most occurrences and the most frequent username.
+    Returns the top 10 dates with the most tweets and the most frequent usernames for those dates.
 
-    Args
-    -----
-    file_path (str): the path to the JSON file.
+    Parameters
+    ----------
+    file_path : str
+        The path to the JSON file containing tweet data.
 
     Returns
-    -----
-    Tuple in its 2 columns:
-        - days (List[datetime.date]): Top 10 dates with the most tweets.
-        - users (List[str]): User who tweeted the most in those dates.
+    -------
+    List[Tuple[datetime.date, str]]
+        A list of tuples, where each tuple contains:
+        - datetime.date: The date with the most tweets.
+        - str: The username of the user who tweeted the most on that date.
     """
     try:
         tweets = read_json(file_path)

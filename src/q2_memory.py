@@ -4,11 +4,40 @@ from typing import List, Tuple
 import re
 
 def count_emojis(content: str) -> Counter:
-    """Generador para contar emojis en el contenido."""
+    """
+    This function counts all the emojis found in the provided text.
+
+    Parameters
+    ----------
+    content : str
+        The text where emojis will be searched.
+
+    Returns
+    -------
+    Counter
+        A `Counter` object containing the frequency of each emoji found in the text.
+    """
+    
     emoji_pattern = re.compile(r'[\U00010000-\U0010ffff]', flags=re.UNICODE)
     return Counter(emoji_pattern.findall(content))
 
 def q2_memory(file_path: str) -> List[Tuple[str, int]]:
+    """
+    This function analyzes a JSON file line by line to count emojis in the content,
+    and returns the 10 most common emojis and their frequency.
+
+    Parameters
+    ----------
+    file_path : str
+        The path to the JSON file to be analyzed.
+
+    Returns
+    -------
+    List[Tuple[str, int]]
+        A list of tuples, where each tuple contains an emoji and its respective frequency of occurrence.
+        The list is ordered from most to least frequent and contains only the 10 most common emojis.
+    """
+
     emoji_counts = Counter()
 
     with open(file_path, 'r', encoding='utf-8') as file:

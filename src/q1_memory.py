@@ -6,16 +6,18 @@ from memory_profiler import profile
 
 def get_top_dates(file_path: str) -> List[str]:
     """
-    Search for the 10 dates with the most tweets.
+    Searches for the top 10 dates with the most tweets in a JSON file.
 
-    Params
-    -------
-    file_path (str): path de json.
+    Parameters
+    ----------
+    file_path : str
+        The path to the JSON file containing tweet data.
 
     Returns
     -------
-    Type: string
-    Detail: return our date format 'YYYY-MM-DD'.
+    List[str]
+        A list of strings representing the top 10 dates (in 'YYYY-MM-DD' format)
+        with the highest number of tweets.
     """
     tweets_by_date= {}
 
@@ -34,11 +36,11 @@ def get_top_dates(file_path: str) -> List[str]:
         ]
 
     except FileNotFoundError:
-        print(f"Error: Archivo '{file_path}' no encontrado.")
+        print(f"Error: File '{file_path}' not found.")
         return []
 
     except json.JSONDecodeError:
-        print(f"Error: Formato de json invalido '{file_path}'.")
+        print(f"Error: Invalid file type '{file_path}'.")
         return []
 
     except Exception as e:
@@ -47,18 +49,21 @@ def get_top_dates(file_path: str) -> List[str]:
 
 def most_username(file_path: str, day: str) -> Tuple[datetime.date, str]:
     """
-    Username with the most tweets for our date
+    Finds the username with the most tweets on a given date.
 
-    Args
-    ------
-    file_path (str): path JSON.
-    day (str): date in format "YYYY-MM-DD".
+    Parameters
+    ----------
+    file_path : str
+        The path to the JSON file containing tweet data.
+    day : str
+        The date in 'YYYY-MM-DD' format for which to find the top username.
 
     Returns
-    ------
-    Tupla:
-        - date (datetime.date): the date with the most tweets.
-        - username (str): the most frequent username for that date.
+    -------
+    Tuple[datetime.date, str]
+        A tuple containing:
+        - date (datetime.date): The date for which the most active username is found.
+        - username (str): The username with the highest number of tweets on that date.
     """
     usernames = {}
     
@@ -90,17 +95,20 @@ def most_username(file_path: str, day: str) -> Tuple[datetime.date, str]:
 
 def q1_memory(file_path: str) -> List[Tuple[datetime.date, str]]:
     """
-    Return our top 10 dates with the most tweets and the username who tweet the most.
+    Returns the top 10 dates with the most tweets and the username 
+    with the highest number of tweets on those dates.
 
-    Args
-    -----
-    file_path (str): JSON path file.
+    Parameters
+    ----------
+    file_path : str
+        The path to the JSON file containing tweet data.
 
     Returns
-    -----
-    Tuple:
-        - date (datetime.date): date with the most tweets.
-        - username (str): user who tweeted the most for that date.
+    -------
+    List[Tuple[datetime.date, str]]
+        A list of tuples, each containing:
+        - date (datetime.date): The date with the most tweets.
+        - username (str): The username with the most tweets on that date.
     """
 
     days= get_top_dates(file_path)
