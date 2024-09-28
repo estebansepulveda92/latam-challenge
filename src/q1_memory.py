@@ -1,6 +1,7 @@
 from typing import List, Tuple
 from datetime import datetime
 import json
+from memory_profiler import profile
 
 
 def get_top_dates(file_path: str) -> List[str]:
@@ -86,7 +87,6 @@ def most_username(file_path: str, day: str) -> Tuple[datetime.date, str]:
     except Exception as e:
         print(f"Error: {e}")
         return (None, None)
-
 
 def q1_memory(file_path: str) -> List[Tuple[datetime.date, str]]:
     """
